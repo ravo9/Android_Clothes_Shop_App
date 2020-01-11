@@ -28,19 +28,24 @@
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="@dimen/feed_view_padding_vertical"
+            android:paddingBottom="@dimen/feed_view_padding_vertical"
             android:fillViewport="true"
             android:clipToPadding="false"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/main_feed_recyclerview"
+        <GridView
+                android:id="@+id/main_feed_gridView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:numColumns="2"
+                android:nestedScrollingEnabled="true"
                 android:fastScrollEnabled="true"
-                android:scrollbars="vertical"
-                android:paddingTop="@dimen/feed_view_padding_vertical"
-                android:paddingBottom="@dimen/feed_view_padding_vertical"
-                android:smoothScrollbar="true"/>
+                android:columnWidth="80dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="24dp"
+                android:horizontalSpacing="10dp"/>
 
     </androidx.core.widget.NestedScrollView>
 

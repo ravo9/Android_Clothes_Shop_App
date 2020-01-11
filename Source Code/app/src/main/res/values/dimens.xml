@@ -33,6 +33,10 @@
     <dimen name="detailed_view_cross_button_margin">10dp</dimen>
     <dimen name="detailed_view_background_alpha">0.7</dimen>
 
+    <dimen name="grid_single_item_height">350dp</dimen>
+    <dimen name="grid_single_item_padding">15dp</dimen>
+    <dimen name="grid_single_item_thumbnail_margin_bottom">20dp</dimen>
+
     <dimen name="loading_badge_elevation">3dp</dimen>
     <dimen name="loading_badge_button_elevation">10dp</dimen>
     <dimen name="loading_badge_text_size_big">20sp</dimen>
