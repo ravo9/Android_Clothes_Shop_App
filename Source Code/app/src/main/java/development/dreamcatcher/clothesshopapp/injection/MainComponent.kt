@@ -1,12 +1,12 @@
 package development.dreamcatcher.clothesshopapp.injection
 
 import dagger.Component
-import development.dreamcatcher.clothesshopapp.data.database.ItemsDatabaseInteractor
-import development.dreamcatcher.clothesshopapp.data.network.ItemsNetworkInteractor
-import development.dreamcatcher.clothesshopapp.features.detailedview.DetailedViewFragment
-import development.dreamcatcher.clothesshopapp.features.detailedview.DetailedViewViewModel
-import development.dreamcatcher.clothesshopapp.features.feed.FeedActivity
-import development.dreamcatcher.clothesshopapp.features.feed.FeedViewModel
+import development.dreamcatcher.clothesshopapp.features.items.database.ItemsDatabaseInteractor
+import development.dreamcatcher.clothesshopapp.features.items.network.ItemsNetworkInteractor
+import development.dreamcatcher.clothesshopapp.ui.detailedview.DetailedViewFragment
+import development.dreamcatcher.clothesshopapp.ui.detailedview.DetailedViewViewModel
+import development.dreamcatcher.clothesshopapp.ui.feed.FeedActivity
+import development.dreamcatcher.clothesshopapp.ui.feed.FeedViewModel
 import javax.inject.Singleton
 
 @Singleton

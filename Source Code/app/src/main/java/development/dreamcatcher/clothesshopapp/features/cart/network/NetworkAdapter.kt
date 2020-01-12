@@ -1,4 +1,4 @@
-package development.dreamcatcher.clothesshopapp.data.network
+package development.dreamcatcher.clothesshopapp.features.cart.network
 
 import okhttp3.OkHttpClient.Builder
 import retrofit2.Retrofit

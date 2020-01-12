@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import development.dreamcatcher.clothesshopapp.features.detailedview.DetailedViewViewModel
-import development.dreamcatcher.clothesshopapp.features.feed.FeedViewModel
+import development.dreamcatcher.clothesshopapp.ui.detailedview.DetailedViewViewModel
+import development.dreamcatcher.clothesshopapp.ui.feed.FeedViewModel
 
 @Module
 abstract class ViewModelModule {

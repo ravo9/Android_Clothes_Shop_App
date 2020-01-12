@@ -2,10 +2,10 @@ package development.dreamcatcher.clothesshopapp.items
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import development.dreamcatcher.clothesshopapp.data.database.ItemsDatabaseInteractor
-import development.dreamcatcher.clothesshopapp.data.database.ItemDatabaseEntity
-import development.dreamcatcher.clothesshopapp.data.network.ItemsNetworkInteractor
-import development.dreamcatcher.clothesshopapp.data.repositories.ItemsRepository
+import development.dreamcatcher.clothesshopapp.features.items.database.ItemsDatabaseInteractor
+import development.dreamcatcher.clothesshopapp.features.items.database.CartItemDatabaseEntity
+import development.dreamcatcher.clothesshopapp.features.items.network.ItemsNetworkInteractor
+import development.dreamcatcher.clothesshopapp.features.items.CartRepository
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -17,9 +17,9 @@ import org.mockito.MockitoAnnotations
 
 class ItemsRepositoryTest {
 
-    private var itemsRepository: ItemsRepository? = null
-    private var fakeItemDatabaseEntity: ItemDatabaseEntity? = null
-    private var fakeItemEntitiesList = ArrayList<ItemDatabaseEntity>()
+    private var itemsRepository: CartRepository? = null
+    private var fakeItemDatabaseEntity: CartItemDatabaseEntity? = null
+    private var fakeItemEntitiesList = ArrayList<CartItemDatabaseEntity>()
 
     @Mock
     private val itemsDatabaseInteractor: ItemsDatabaseInteractor? = null
@@ -37,15 +37,24 @@ class ItemsRepositoryTest {
         MockitoAnnotations.initMocks(this)
 
         // Initialize the repository
-        itemsRepository = ItemsRepository(itemsNetworkInteractor!!, itemsDatabaseInteractor!!)
+        itemsRepository = CartRepository(
+            itemsNetworkInteractor!!,
+            itemsDatabaseInteractor!!
+        )
 
-        // Prepare fake data
+        // Prepare fake features
         val name = "fake/item/name"
         val capital = "fake/item/capital"
         val population = 43234234
 
         // Prepare fake Item Entity (DB object)
-        fakeItemDatabaseEntity = ItemDatabaseEntity(name, capital, population, null)
+        fakeItemDatabaseEntity =
+            CartItemDatabaseEntity(
+                name,
+                capital,
+                population,
+                null
+            )
 
         // Prepare fake Items Entities List
         fakeItemEntitiesList.add(fakeItemDatabaseEntity!!)
@@ -55,7 +64,7 @@ class ItemsRepositoryTest {
     fun fetchAllItemsByItemsRepository() {
 
         // Prepare LiveData structure
-        val itemEntityLiveData = MutableLiveData<List<ItemDatabaseEntity>>()
+        val itemEntityLiveData = MutableLiveData<List<CartItemDatabaseEntity>>()
         itemEntityLiveData.setValue(fakeItemEntitiesList);
 
         // Set testing conditions
@@ -72,7 +81,7 @@ class ItemsRepositoryTest {
     fun fetchItemByItemsRepository() {
 
         // Prepare LiveData structure
-        val itemEntityLiveData = MutableLiveData<ItemDatabaseEntity>()
+        val itemEntityLiveData = MutableLiveData<CartItemDatabaseEntity>()
         itemEntityLiveData.setValue(fakeItemDatabaseEntity);
 
         // Prepare fake item name

@@ -2,11 +2,11 @@ package development.dreamcatcher.clothesshopapp.interactors
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import development.dreamcatcher.clothesshopapp.data.database.ItemsDao
-import development.dreamcatcher.clothesshopapp.data.database.ItemsDatabase
-import development.dreamcatcher.clothesshopapp.data.database.ItemsDatabaseInteractor
-import development.dreamcatcher.clothesshopapp.data.database.ItemDatabaseEntity
-import development.dreamcatcher.clothesshopapp.data.network.ItemGsonObject
+import development.dreamcatcher.clothesshopapp.features.items.database.CartDao
+import development.dreamcatcher.clothesshopapp.features.items.database.CartDatabase
+import development.dreamcatcher.clothesshopapp.features.items.database.ItemsDatabaseInteractor
+import development.dreamcatcher.clothesshopapp.features.items.database.CartItemDatabaseEntity
+import development.dreamcatcher.clothesshopapp.features.items.network.CartItemGsonObject
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -20,14 +20,14 @@ import org.mockito.MockitoAnnotations
 class ItemsDatabaseInteractorTest {
 
     private var itemsDatabaseInteractor: ItemsDatabaseInteractor? = null
-    private var fakeItemGsonObject: ItemGsonObject? = null
-    private var fakeItemDatabaseEntity: ItemDatabaseEntity? = null
+    private var fakeItemGsonObject: CartItemGsonObject? = null
+    private var fakeItemDatabaseEntity: CartItemDatabaseEntity? = null
 
     @Mock
-    private val itemsDatabase: ItemsDatabase? = null
+    private val itemsDatabase: CartDatabase? = null
 
     @Mock
-    private val itemsDao: ItemsDao? = null
+    private val cartDao: CartDao? = null
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -39,18 +39,33 @@ class ItemsDatabaseInteractorTest {
         MockitoAnnotations.initMocks(this)
 
         // Initialize the Interactor
-        itemsDatabaseInteractor = ItemsDatabaseInteractor(itemsDatabase!!)
+        itemsDatabaseInteractor =
+            ItemsDatabaseInteractor(
+                itemsDatabase!!
+            )
 
-        // Prepare fake data
+        // Prepare fake features
         val name = "fake/item/name"
         val capital = "fake/item/capital"
         val population = 43234234
 
         // Prepare fake Gson (API) object
-        fakeItemGsonObject = ItemGsonObject(name, capital, population, null)
+        fakeItemGsonObject =
+            CartItemGsonObject(
+                name,
+                capital,
+                population,
+                null
+            )
 
         // Prepare fake Item Entity (DB object)
-        fakeItemDatabaseEntity = ItemDatabaseEntity(name, capital, population, null)
+        fakeItemDatabaseEntity =
+            CartItemDatabaseEntity(
+                name,
+                capital,
+                population,
+                null
+            )
     }
 
     @Test
@@ -67,12 +82,12 @@ class ItemsDatabaseInteractorTest {
     fun fetchItemByDatabaseInteractor() {
 
         // Prepare LiveData structure
-        val itemEntityLiveData = MutableLiveData<ItemDatabaseEntity>()
+        val itemEntityLiveData = MutableLiveData<CartItemDatabaseEntity>()
         itemEntityLiveData.setValue(fakeItemDatabaseEntity);
 
         // Set testing conditions
-        Mockito.`when`(itemsDatabase?.getItemsDao()).thenReturn(itemsDao)
-        Mockito.`when`(itemsDao?.getSingleSavedItemByName(anyString())).thenReturn(itemEntityLiveData)
+        Mockito.`when`(itemsDatabase?.getItemsDao()).thenReturn(cartDao)
+        Mockito.`when`(cartDao?.getSingleSavedItemByName(anyString())).thenReturn(itemEntityLiveData)
 
         // Perform the action
         val storedItem = itemsDatabaseInteractor?.getSingleSavedItemByName("fake/item/name")

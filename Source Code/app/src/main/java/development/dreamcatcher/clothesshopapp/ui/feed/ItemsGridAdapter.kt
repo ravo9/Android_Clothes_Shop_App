@@ -1,4 +1,4 @@
-package development.dreamcatcher.clothesshopapp.features.feed
+package development.dreamcatcher.clothesshopapp.ui.feed
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.recyclerview.widget.RecyclerView
 import development.dreamcatcher.clothesshopapp.R
-import development.dreamcatcher.clothesshopapp.data.database.ItemDatabaseEntity
+import development.dreamcatcher.clothesshopapp.features.items.database.ItemDatabaseEntity
 import kotlinx.android.synthetic.main.grid_single_item.view.*
 
 // Main adapter used for managing items grid within the main GridView (main feed listed)
@@ -52,10 +52,10 @@ class ItemsGridAdapter (val context: Context, val clickListener: (Int) -> Unit) 
             holder = view.tag as ViewHolder
         }
 
-        // Prepare fetched data
+        // Prepare fetched features
         val name = itemsList[position].name
 
-        // Set data within the holder
+        // Set features within the holder
         holder.name.text = name
 
         // Set onClickListener

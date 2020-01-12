@@ -2,9 +2,9 @@ package development.dreamcatcher.clothesshopapp.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import development.dreamcatcher.clothesshopapp.data.database.ItemDatabaseEntity
-import development.dreamcatcher.clothesshopapp.data.repositories.ItemsRepository
-import development.dreamcatcher.clothesshopapp.features.feed.FeedViewModel
+import development.dreamcatcher.clothesshopapp.features.items.database.CartItemDatabaseEntity
+import development.dreamcatcher.clothesshopapp.features.items.CartRepository
+import development.dreamcatcher.clothesshopapp.ui.feed.FeedViewModel
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -18,11 +18,11 @@ import org.mockito.MockitoAnnotations
 class FeedViewModelTest {
 
     private var viewModel: FeedViewModel? = null
-    private var fakeItemDatabaseEntity: ItemDatabaseEntity? = null
-    private var fakeItemEntitiesList = ArrayList<ItemDatabaseEntity>()
+    private var fakeItemDatabaseEntity: CartItemDatabaseEntity? = null
+    private var fakeItemEntitiesList = ArrayList<CartItemDatabaseEntity>()
 
     @Mock
-    private val itemsRepository: ItemsRepository? = null
+    private val itemsRepository: CartRepository? = null
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -36,13 +36,19 @@ class FeedViewModelTest {
         // Initialize the item
         viewModel = FeedViewModel(itemsRepository!!)
 
-        // Prepare fake data
+        // Prepare fake features
         val name = "fake/item/name"
         val capital = "fake/item/capital"
         val population = 43234234
 
         // Prepare fake Item Entity (DB object)
-        fakeItemDatabaseEntity = ItemDatabaseEntity(name, capital, population, null)
+        fakeItemDatabaseEntity =
+            CartItemDatabaseEntity(
+                name,
+                capital,
+                population,
+                null
+            )
 
         // Prepare fake Items Entities List
         fakeItemEntitiesList.add(fakeItemDatabaseEntity!!)
@@ -52,7 +58,7 @@ class FeedViewModelTest {
     fun fetchAllItemsByFeedViewModel() {
 
         // Prepare LiveData structure
-        val itemEntityLiveData = MutableLiveData<List<ItemDatabaseEntity>>()
+        val itemEntityLiveData = MutableLiveData<List<CartItemDatabaseEntity>>()
         itemEntityLiveData.setValue(fakeItemEntitiesList)
 
         // Set testing conditions

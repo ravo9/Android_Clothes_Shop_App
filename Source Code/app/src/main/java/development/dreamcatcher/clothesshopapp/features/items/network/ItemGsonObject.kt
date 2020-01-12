@@ -1,9 +1,10 @@
-package development.dreamcatcher.clothesshopapp.data.network
+package development.dreamcatcher.clothesshopapp.features.items.network
 
 import com.google.gson.annotations.SerializedName
 
-// ApiResponse object used for deserializing data coming from API endpoint
+// ApiResponse object used for deserializing features coming from API endpoint
 data class ItemGsonObject(
+
     @SerializedName("productId")
     val productId: Int?,
 

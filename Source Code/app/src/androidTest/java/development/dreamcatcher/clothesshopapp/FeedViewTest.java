@@ -8,7 +8,7 @@ import androidx.test.rule.ActivityTestRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-import development.dreamcatcher.clothesshopapp.features.feed.FeedActivity;
+import development.dreamcatcher.clothesshopapp.ui.feed.FeedActivity;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;

@@ -1,4 +1,4 @@
-package development.dreamcatcher.clothesshopapp.data.database
+package development.dreamcatcher.clothesshopapp.features.items.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

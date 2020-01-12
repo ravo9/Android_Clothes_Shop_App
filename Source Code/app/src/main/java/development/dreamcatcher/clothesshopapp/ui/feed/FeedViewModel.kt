@@ -1,10 +1,10 @@
-package development.dreamcatcher.clothesshopapp.features.feed
+package development.dreamcatcher.clothesshopapp.ui.feed
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import development.dreamcatcher.clothesshopapp.data.database.ItemDatabaseEntity
-import development.dreamcatcher.clothesshopapp.data.repositories.ItemsRepository
+import development.dreamcatcher.clothesshopapp.features.items.ItemsRepository
+import development.dreamcatcher.clothesshopapp.features.items.database.ItemDatabaseEntity
 import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(private val itemsRepository: ItemsRepository)

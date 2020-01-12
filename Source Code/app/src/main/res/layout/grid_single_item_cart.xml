@@ -5,10 +5,19 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/single_item_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/grid_single_item_height"
+        android:layout_height="wrap_content"
         android:padding="@dimen/grid_single_item_padding"
         android:elevation="2dp"
         android:background="@color/colorBackground">
+
+   <ImageView
+           android:id="@+id/thumbnail"
+           app:layout_constraintDimensionRatio="1:1"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:layout_marginBottom="@dimen/grid_single_item_thumbnail_margin_bottom"
+           android:scaleType="fitXY"
+           tools:ignore="MissingConstraints"/>
 
     <TextView
             android:id="@+id/name"
@@ -17,22 +26,23 @@
             android:textAlignment="center"
             android:maxLines="2"
 
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btn_add_to_cart"/>
+            app:layout_constraintTop_toBottomOf="@id/thumbnail"
+            app:layout_constraintBottom_toTopOf="@id/color"/>
 
-    <Button
-            android:id="@+id/btn_add_to_cart"
+    <TextView
+            android:id="@+id/color"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/grid_single_item_button_height"
-            android:text="@string/cart"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextAlternative"
 
-            app:layout_constraintBottom_toTopOf="@id/btn_add_to_wishlist"/>
+            app:layout_constraintBottom_toTopOf="@id/price"/>
 
-    <Button
-            android:id="@+id/btn_add_to_wishlist"
+    <TextView
+            android:id="@+id/price"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/grid_single_item_button_height"
-            android:text="@string/wishlist"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
 
             app:layout_constraintBottom_toBottomOf="parent"/>
 

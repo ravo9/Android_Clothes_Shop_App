@@ -1,4 +1,4 @@
-package development.dreamcatcher.clothesshopapp.features.feed
+package development.dreamcatcher.clothesshopapp.ui.feed
 
 import android.os.Bundle
 import android.view.View
@@ -7,10 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import development.dreamcatcher.clothesshopapp.R
-import development.dreamcatcher.clothesshopapp.data.database.ItemDatabaseEntity
-import development.dreamcatcher.clothesshopapp.features.detailedview.DetailedViewFragment
+import development.dreamcatcher.clothesshopapp.features.items.database.ItemDatabaseEntity
+import development.dreamcatcher.clothesshopapp.ui.detailedview.DetailedViewFragment
 import development.dreamcatcher.clothesshopapp.injection.ClothesShopApp
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.appbar.*
@@ -113,7 +112,7 @@ class FeedActivity : AppCompatActivity() {
         // Display "Try Again" button
         tryagain_button.visibility = View.VISIBLE
 
-        // Setup onClick listener that resets Items data subscription
+        // Setup onClick listener that resets Items features subscription
         tryagain_button.setOnClickListener {
             refreshItemsSubscription()
 
