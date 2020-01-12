@@ -36,7 +36,7 @@
     <dimen name="grid_single_item_height">350dp</dimen>
     <dimen name="grid_single_item_padding">15dp</dimen>
     <dimen name="grid_single_item_thumbnail_margin_bottom">20dp</dimen>
-    <dimen name="grid_single_item_button_height">60dp</dimen>
+    <dimen name="grid_single_item_button_height">40dp</dimen>
 
     <dimen name="loading_badge_elevation">3dp</dimen>
     <dimen name="loading_badge_button_elevation">10dp</dimen>

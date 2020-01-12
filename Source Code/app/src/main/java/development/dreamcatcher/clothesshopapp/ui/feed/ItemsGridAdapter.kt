@@ -57,9 +57,21 @@ class ItemsGridAdapter (val context: Context,
 
         // Prepare fetched features
         val name = itemsList[position].name
+        val category = itemsList[position].category
+        val price = itemsList[position].price
+        val oldPrice = itemsList[position].oldPrice
+        val stock = itemsList[position].stock
 
         // Set features within the holder
         holder.name.text = name
+        holder.category.text = category
+        holder.price.text = price.toString()
+        oldPrice?.let {
+            holder.oldPrice.text = it.toString()
+        }
+        stock?.let {
+            holder.stock.text = it.toString()
+        }
 
         // Set onClickListeners
         holder.itemContainer.setOnClickListener{
@@ -81,6 +93,10 @@ class ItemsGridAdapter (val context: Context,
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         val name = view.name
+        val category = view.category
+        val price = view.price
+        val oldPrice = view.oldPrice
+        val stock = view.stock
         val btnCart = view.btn_add_to_cart
         val btnWhishlist = view.btn_add_to_wishlist
         val itemContainer = view.single_item_container

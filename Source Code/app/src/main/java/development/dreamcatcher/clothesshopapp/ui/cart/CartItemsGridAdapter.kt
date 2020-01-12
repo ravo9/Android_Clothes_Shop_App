@@ -7,20 +7,17 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.recyclerview.widget.RecyclerView
 import development.dreamcatcher.clothesshopapp.R
-import development.dreamcatcher.clothesshopapp.features.cart.database.CartItemDatabaseEntity
 import development.dreamcatcher.clothesshopapp.features.items.database.ItemDatabaseEntity
-import kotlinx.android.synthetic.main.grid_single_item.view.*
 import kotlinx.android.synthetic.main.grid_single_item.view.name
-import kotlinx.android.synthetic.main.grid_single_item.view.single_item_container
 import kotlinx.android.synthetic.main.grid_single_item_cart.view.*
 
 // Main adapter used for managing items grid within the main GridView (main feed listed)
 class CartItemsGridAdapter (val context: Context,
                             val removeItemClickListener: (Int) -> Unit) : BaseAdapter() {
 
-    private var itemsList: List<CartItemDatabaseEntity> = ArrayList()
+    private var itemsList: List<ItemDatabaseEntity> = ArrayList()
 
-    fun setItems(items: List<CartItemDatabaseEntity>) {
+    fun setItems(items: List<ItemDatabaseEntity>) {
         this.itemsList = items
         notifyDataSetChanged()
     }
@@ -34,7 +31,7 @@ class CartItemsGridAdapter (val context: Context,
     }
 
     override fun getItemId(position: Int): Long {
-        return itemsList[position].productId.toLong()
+        return itemsList[position].id.toLong()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -53,14 +50,26 @@ class CartItemsGridAdapter (val context: Context,
         }
 
         // Prepare fetched features
-        //val name = itemsList[position].name
+        val name = itemsList[position].name
+        val category = itemsList[position].category
+        val price = itemsList[position].price
+        val oldPrice = itemsList[position].oldPrice
+        val stock = itemsList[position].stock
 
         // Set features within the holder
-        //holder.name.text = name
+        holder.name.text = name
+        holder.category.text = category
+        holder.price.text = price.toString()
+        oldPrice?.let {
+            holder.oldPrice.text = it.toString()
+        }
+        stock?.let {
+            holder.stock.text = it.toString()
+        }
 
         // Set onClickListeners
         holder.btnRemove.setOnClickListener{
-            val itemId = itemsList[position].productId
+            val itemId = itemsList[position].id
             removeItemClickListener(itemId)
         }
 
@@ -70,7 +79,10 @@ class CartItemsGridAdapter (val context: Context,
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         val name = view.name
+        val category = view.category
+        val price = view.price
+        val oldPrice = view.oldPrice
+        val stock = view.stock
         val btnRemove = view.btn_remove
-        val itemContainer = view.single_item_container
     }
 }

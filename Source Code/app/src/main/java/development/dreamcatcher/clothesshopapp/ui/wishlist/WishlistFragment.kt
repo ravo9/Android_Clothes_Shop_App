@@ -11,11 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import development.dreamcatcher.clothesshopapp.R
+import development.dreamcatcher.clothesshopapp.features.items.database.ItemDatabaseEntity
 import development.dreamcatcher.clothesshopapp.features.wishlist.database.WishlistItemDatabaseEntity
 import development.dreamcatcher.clothesshopapp.injection.ClothesShopApp
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.wishlist.*
+import java.util.*
 import javax.inject.Inject
 
 // Detailed view for displaying wishlist
@@ -75,6 +77,7 @@ class WishlistFragment(): Fragment(){
             .subscribe(
                 {
                     Toast.makeText(context, R.string.item_removed, Toast.LENGTH_SHORT).show()
+                    subscribeForItems()
                 },
                 {
                     Toast.makeText(context, R.string.error_item_couldnt_be_removed, Toast.LENGTH_SHORT).show()
@@ -86,8 +89,23 @@ class WishlistFragment(): Fragment(){
             if (!it.isNullOrEmpty()) {
                 showLoadingView(false)
 
-                // Display fetched Items
-                wishlistItemsGridAdapter.setItems(it)
+                // Map CartItemsEntities into ItemsEntities
+                val cartItems = it
+                val itemsToBeDisplayed = LinkedList<ItemDatabaseEntity>()
+                viewModel.getWholeItems()?.observe(this, Observer<List<ItemDatabaseEntity>> {
+                    if (!it.isNullOrEmpty()) {
+                        val allItems = it
+                        cartItems.forEach {
+                            val searchedId = it.productId
+                            allItems.firstOrNull { it.id == searchedId }?.let {
+                                itemsToBeDisplayed.add(it)
+                            }
+                        }
+
+                        // Display fetched Items
+                        wishlistItemsGridAdapter.setItems(itemsToBeDisplayed)
+                    }
+                })
             }
         })
     }

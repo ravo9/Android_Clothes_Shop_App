@@ -8,6 +8,7 @@ import dagger.multibindings.IntoMap
 import development.dreamcatcher.clothesshopapp.ui.cart.CartViewModel
 import development.dreamcatcher.clothesshopapp.ui.detailedview.DetailedViewViewModel
 import development.dreamcatcher.clothesshopapp.ui.feed.FeedViewModel
+import development.dreamcatcher.clothesshopapp.ui.wishlist.WishlistViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -28,6 +29,12 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CartViewModel::class)
     internal abstract fun bindCartViewModel(cartViewModel: CartViewModel)
+            : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WishlistViewModel::class)
+    internal abstract fun bindWishlistViewModel(wishlistViewModel: WishlistViewModel)
             : ViewModel
 
     @Binds
