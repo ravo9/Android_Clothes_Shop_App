@@ -1,9 +1,9 @@
 package development.dreamcatcher.clothesshopapp.interactors
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import development.dreamcatcher.clothesshopapp.features.items.network.ItemGsonObject
 import development.dreamcatcher.clothesshopapp.features.items.network.RestClient
 import development.dreamcatcher.clothesshopapp.features.items.network.ItemsNetworkInteractor
-import development.dreamcatcher.clothesshopapp.features.items.network.CartItemGsonObject
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.TestRule
@@ -13,7 +13,7 @@ import org.mockito.MockitoAnnotations
 class ItemsNetworkInteractorTest {
 
     private var itemsNetworkInteractor: ItemsNetworkInteractor? = null
-    private var fakeItemGsonObject: CartItemGsonObject? = null
+    private var fakeItemGsonObject: ItemGsonObject? = null
 
     @Mock
     private val restClient: RestClient? = null
@@ -34,16 +34,19 @@ class ItemsNetworkInteractorTest {
             )
 
         // Prepare fake features
+        val id = 123
         val name = "fake/item/name"
-        val capital = "fake/item/capital"
-        val population = 43234234
+        val category = "fake/item/category"
+        val price = 100.0f
 
         // Prepare fake Gson (API) object
         fakeItemGsonObject =
-            CartItemGsonObject(
+            ItemGsonObject(
+                id,
                 name,
-                capital,
-                population,
+                category,
+                price,
+                null,
                 null
             )
     }

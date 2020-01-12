@@ -86,13 +86,14 @@ class WishlistFragment(): Fragment(){
 
     private fun subscribeForItems() {
         viewModel.getWishlistItems()?.observe(this, Observer<List<WishlistItemDatabaseEntity>> {
+            showLoadingView(false)
+            val itemsToBeDisplayed = LinkedList<ItemDatabaseEntity>()
+
             if (!it.isNullOrEmpty()) {
-                showLoadingView(false)
 
                 // Map CartItemsEntities into ItemsEntities
                 val cartItems = it
-                val itemsToBeDisplayed = LinkedList<ItemDatabaseEntity>()
-                viewModel.getWholeItems()?.observe(this, Observer<List<ItemDatabaseEntity>> {
+                viewModel.getWholeItems(false)?.observe(this, Observer<List<ItemDatabaseEntity>> {
                     if (!it.isNullOrEmpty()) {
                         val allItems = it
                         cartItems.forEach {
@@ -101,12 +102,12 @@ class WishlistFragment(): Fragment(){
                                 itemsToBeDisplayed.add(it)
                             }
                         }
-
-                        // Display fetched Items
-                        wishlistItemsGridAdapter.setItems(itemsToBeDisplayed)
                     }
                 })
             }
+
+            // Display fetched Items
+            wishlistItemsGridAdapter.setItems(itemsToBeDisplayed)
         })
     }
 
