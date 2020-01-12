@@ -1,4 +1,4 @@
-package development.dreamcatcher.clothesshopapp.ui.feed
+package development.dreamcatcher.clothesshopapp.ui.cart
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,24 +7,21 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.recyclerview.widget.RecyclerView
 import development.dreamcatcher.clothesshopapp.R
+import development.dreamcatcher.clothesshopapp.features.cart.database.CartItemDatabaseEntity
 import development.dreamcatcher.clothesshopapp.features.items.database.ItemDatabaseEntity
 import kotlinx.android.synthetic.main.grid_single_item.view.*
+import kotlinx.android.synthetic.main.grid_single_item.view.name
+import kotlinx.android.synthetic.main.grid_single_item.view.single_item_container
+import kotlinx.android.synthetic.main.grid_single_item_cart.view.*
 
 // Main adapter used for managing items grid within the main GridView (main feed listed)
-class ItemsGridAdapter (val context: Context,
-                        val itemClickListener: (Int) -> Unit,
-                        val cartClickListener: (Int) -> Unit,
-                        val whishlistClickListener: (Int) -> Unit) : BaseAdapter() {
+class CartItemsGridAdapter (val context: Context,
+                            val removeItemClickListener: (Int) -> Unit) : BaseAdapter() {
 
-    private var itemsList: List<ItemDatabaseEntity> = ArrayList()
+    private var itemsList: List<CartItemDatabaseEntity> = ArrayList()
 
-    fun setItems(items: List<ItemDatabaseEntity>) {
+    fun setItems(items: List<CartItemDatabaseEntity>) {
         this.itemsList = items
-        notifyDataSetChanged()
-    }
-
-    fun changeSortingOrder() {
-        this.itemsList = itemsList.reversed()
         notifyDataSetChanged()
     }
 
@@ -37,7 +34,7 @@ class ItemsGridAdapter (val context: Context,
     }
 
     override fun getItemId(position: Int): Long {
-        return itemsList[position].id.toLong()
+        return itemsList[position].productId.toLong()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -48,7 +45,7 @@ class ItemsGridAdapter (val context: Context,
 
         // Inflate/ re-use the view
         if (view == null) {
-            view = inflater.inflate(R.layout.grid_single_item, null)
+            view = inflater.inflate(R.layout.grid_single_item_cart, null)
             holder = ViewHolder(view)
             view.tag = holder
         } else {
@@ -56,23 +53,15 @@ class ItemsGridAdapter (val context: Context,
         }
 
         // Prepare fetched features
-        val name = itemsList[position].name
+        //val name = itemsList[position].name
 
         // Set features within the holder
-        holder.name.text = name
+        //holder.name.text = name
 
         // Set onClickListeners
-        holder.itemContainer.setOnClickListener{
-            val itemId = itemsList[position].id
-            itemClickListener(itemId)
-        }
-        holder.btnCart.setOnClickListener{
-            val itemId = itemsList[position].id
-            cartClickListener(itemId)
-        }
-        holder.btnWhishlist.setOnClickListener{
-            val itemId = itemsList[position].id
-            whishlistClickListener(itemId)
+        holder.btnRemove.setOnClickListener{
+            val itemId = itemsList[position].productId
+            removeItemClickListener(itemId)
         }
 
         // In this exceptional case we use '!!' as we know that he view will be either inflated or re-used.
@@ -81,8 +70,7 @@ class ItemsGridAdapter (val context: Context,
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         val name = view.name
-        val btnCart = view.btn_add_to_cart
-        val btnWhishlist = view.btn_add_to_wishlist
+        val btnRemove = view.btn_remove
         val itemContainer = view.single_item_container
     }
 }

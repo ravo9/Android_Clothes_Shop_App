@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import development.dreamcatcher.clothesshopapp.ui.cart.CartViewModel
 import development.dreamcatcher.clothesshopapp.ui.detailedview.DetailedViewViewModel
 import development.dreamcatcher.clothesshopapp.ui.feed.FeedViewModel
 
@@ -21,6 +22,12 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailedViewViewModel::class)
     internal abstract fun bindDetailedViewViewModel(detailedViewViewModel: DetailedViewViewModel)
+            : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CartViewModel::class)
+    internal abstract fun bindCartViewModel(cartViewModel: CartViewModel)
             : ViewModel
 
     @Binds

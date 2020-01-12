@@ -1,5 +1,6 @@
 package development.dreamcatcher.clothesshopapp.ui.feed
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,10 @@ import development.dreamcatcher.clothesshopapp.R
 import development.dreamcatcher.clothesshopapp.features.items.database.ItemDatabaseEntity
 import development.dreamcatcher.clothesshopapp.ui.detailedview.DetailedViewFragment
 import development.dreamcatcher.clothesshopapp.injection.ClothesShopApp
+import development.dreamcatcher.clothesshopapp.ui.cart.CartFragment
+import development.dreamcatcher.clothesshopapp.ui.wishlist.WishlistFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.appbar.*
 import kotlinx.android.synthetic.main.loading_badge.*
@@ -49,7 +54,12 @@ class FeedActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        itemsGridAdapter = ItemsGridAdapter(this.baseContext, this::displayDetailedView)
+        itemsGridAdapter = ItemsGridAdapter(
+            this.baseContext,
+            this::displayDetailedView,
+            this::addItemToCart,
+            this::addItemToWhishlist
+        )
         main_feed_gridView.adapter = itemsGridAdapter
     }
 
@@ -86,11 +96,28 @@ class FeedActivity : AppCompatActivity() {
     }
 
     private fun displayDetailedView(itemId: Int) {
-
         val fragment = DetailedViewFragment()
         val bundle = Bundle()
         bundle.putInt("itemId", itemId)
         fragment.arguments = bundle
+
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun displayCart() {
+        val fragment = CartFragment()
+
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun displayWishlist() {
+        val fragment = WishlistFragment()
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.main_container, fragment)
@@ -126,6 +153,16 @@ class FeedActivity : AppCompatActivity() {
         loading_container.visibility = View.GONE
         appbar_container.visibility = View.VISIBLE
 
+        // Setup cart button
+        btn_cart.setOnClickListener{
+            displayCart()
+        }
+
+        // Setup wishlist button
+        btn_wishlist.setOnClickListener{
+            displayWishlist()
+        }
+
         // Setup refresh button
         btn_refresh.setOnClickListener{
             refreshItemsSubscription()
@@ -139,5 +176,32 @@ class FeedActivity : AppCompatActivity() {
 
     private fun changeSortingOrder() {
         itemsGridAdapter.changeSortingOrder()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun addItemToCart(itemId: Int) {
+        viewModel.addItemToCart(itemId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    Toast.makeText(this, R.string.item_added_to_cart, Toast.LENGTH_SHORT).show()
+                },
+                {
+                    Toast.makeText(this, R.string.error_item_couldnt_be_added, Toast.LENGTH_SHORT).show()
+                })
+    }
+
+    private fun addItemToWhishlist(itemId: Int) {
+        viewModel.addItemToWishlist(itemId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    Toast.makeText(this, R.string.item_added_to_cart, Toast.LENGTH_SHORT).show()
+                },
+                {
+                    Toast.makeText(this, R.string.error_item_couldnt_be_added, Toast.LENGTH_SHORT).show()
+                })
     }
 }

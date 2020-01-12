@@ -1,7 +1,7 @@
 package development.dreamcatcher.clothesshopapp.interactors
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import development.dreamcatcher.clothesshopapp.features.items.network.ApiClient
+import development.dreamcatcher.clothesshopapp.features.items.network.RestClient
 import development.dreamcatcher.clothesshopapp.features.items.network.ItemsNetworkInteractor
 import development.dreamcatcher.clothesshopapp.features.items.network.CartItemGsonObject
 import org.junit.Before
@@ -16,7 +16,7 @@ class ItemsNetworkInteractorTest {
     private var fakeItemGsonObject: CartItemGsonObject? = null
 
     @Mock
-    private val apiClient: ApiClient? = null
+    private val restClient: RestClient? = null
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
@@ -30,7 +30,7 @@ class ItemsNetworkInteractorTest {
         // Initialize the Interactor
         itemsNetworkInteractor =
             ItemsNetworkInteractor(
-                apiClient!!
+                restClient!!
             )
 
         // Prepare fake features

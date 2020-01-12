@@ -1,4 +1,4 @@
-package development.dreamcatcher.clothesshopapp.ui.cart
+package development.dreamcatcher.clothesshopapp.ui.wishlist
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,20 +11,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import development.dreamcatcher.clothesshopapp.R
-import development.dreamcatcher.clothesshopapp.features.cart.database.CartItemDatabaseEntity
+import development.dreamcatcher.clothesshopapp.features.wishlist.database.WishlistItemDatabaseEntity
 import development.dreamcatcher.clothesshopapp.injection.ClothesShopApp
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.cart.*
+import kotlinx.android.synthetic.main.wishlist.*
 import javax.inject.Inject
 
-// Detailed view for displaying cart
-class CartFragment(): Fragment(){
+// Detailed view for displaying wishlist
+class WishlistFragment(): Fragment(){
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: CartViewModel
-    private lateinit var cartItemsGridAdapter: CartItemsGridAdapter
+    private lateinit var viewModel: WishlistViewModel
+    private lateinit var wishlistItemsGridAdapter: WishlistItemsGridAdapter
 
     init {
         ClothesShopApp.mainComponent.inject(this)
@@ -33,10 +33,10 @@ class CartFragment(): Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // Initialize ViewModel
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(CartViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(WishlistViewModel::class.java)
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.cart, container, false)
+        return inflater.inflate(R.layout.wishlist, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class CartFragment(): Fragment(){
         // Initialize RecyclerView (items List)
         setupRecyclerView()
 
-        // Fetch cart items from repository
+        // Fetch wishlist items from repository
         subscribeForItems()
 
         // Setup Cross Button
@@ -59,11 +59,11 @@ class CartFragment(): Fragment(){
 
     private fun setupRecyclerView() {
         context?.let {
-            cartItemsGridAdapter = CartItemsGridAdapter(
+            wishlistItemsGridAdapter = WishlistItemsGridAdapter(
                 it,
                 this::removeItem
             )
-            cart_gridView.adapter = cartItemsGridAdapter
+            wishlist_gridView.adapter = wishlistItemsGridAdapter
         }
     }
 
@@ -82,12 +82,12 @@ class CartFragment(): Fragment(){
     }
 
     private fun subscribeForItems() {
-        viewModel.getCartItems()?.observe(this, Observer<List<CartItemDatabaseEntity>> {
+        viewModel.getWishlistItems()?.observe(this, Observer<List<WishlistItemDatabaseEntity>> {
             if (!it.isNullOrEmpty()) {
                 showLoadingView(false)
 
                 // Display fetched Items
-                cartItemsGridAdapter.setItems(it)
+                wishlistItemsGridAdapter.setItems(it)
             }
         })
     }

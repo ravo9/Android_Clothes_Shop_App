@@ -10,7 +10,7 @@ import io.reactivex.subjects.SingleSubject
 import javax.inject.Inject
 
 // Interactor used for communication between features repository and external API
-class ItemsNetworkInteractor @Inject constructor(var apiClient: ApiClient) {
+class ItemsNetworkInteractor @Inject constructor(var restClient: RestClient) {
 
     val networkError: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -18,7 +18,7 @@ class ItemsNetworkInteractor @Inject constructor(var apiClient: ApiClient) {
     fun getAllItems(): Observable<Result<List<ItemGsonObject>>> {
         val allItemsSubject = SingleSubject.create<Result<List<ItemGsonObject>>>()
 
-        apiClient.getItems()
+        restClient.getItems()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

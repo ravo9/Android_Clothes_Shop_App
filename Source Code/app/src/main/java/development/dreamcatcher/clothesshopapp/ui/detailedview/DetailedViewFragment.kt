@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.detailed_view.*
 import javax.inject.Inject
 
 // Detailed view for displaying chosen item
-class DetailedViewFragment : Fragment() {
+class DetailedViewFragment: Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

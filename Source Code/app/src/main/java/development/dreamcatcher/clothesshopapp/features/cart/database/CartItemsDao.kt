@@ -15,6 +15,9 @@ interface CartItemsDao {
     @Query("SELECT * FROM cart_items")
     fun getCartItems(): LiveData<List<CartItemDatabaseEntity>>?
 
+    @Query("DELETE FROM cart_items WHERE productId = :id")
+    fun removeItemById(id: Int)
+
     @Query("DELETE FROM cart_items")
     fun clearDatabase()
 }

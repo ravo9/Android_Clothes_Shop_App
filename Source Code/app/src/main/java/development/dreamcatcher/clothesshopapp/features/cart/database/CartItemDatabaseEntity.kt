@@ -6,5 +6,5 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "cart_items")
 data class CartItemDatabaseEntity(
         @PrimaryKey val cartId: Int,
-        @PrimaryKey val productId: Int
+        val productId: Int
 )

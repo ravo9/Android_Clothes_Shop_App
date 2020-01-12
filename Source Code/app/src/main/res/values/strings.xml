@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Items List App</string>
+    <string name="app_name">Clothes Shop</string>
 
     <string name="loading_items">Loading Items…</string>
     <string name="network_problem_check_internet_connection">Network problem. Check Internet connection please.</string>
@@ -10,10 +10,16 @@
     <string name="close">Close</string>
     <string name="cart">Cart</string>
     <string name="wishlist">Wishlist</string>
+    <string name="remove">Remove</string>
 
     <string name="capital">Capital: %s</string>
     <string name="population">Population: %d</string>
     <string name="latitude_longitude">Latitude/ longitude: %s</string>
+
+    <string name="item_added_to_cart">Item added to cart!</string>
+    <string name="item_removed">Item removed!</string>
+    <string name="error_item_couldnt_be_added">Error. Item couldn\'t be added.</string>
+    <string name="error_item_couldnt_be_removed">Error. Item couldn\'t be removed.</string>
 
     <string name="base_server_url">https://private-anon-9b5a8d368f-ddshop.apiary-mock.com</string>
     <string name="base_search_url">https://www.google.com/search?q=</string>

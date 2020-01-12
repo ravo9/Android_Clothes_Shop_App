@@ -53,7 +53,7 @@
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <GridView
-                    android:id="@+id/cart_gridView"
+                    android:id="@+id/wishlist_gridView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"

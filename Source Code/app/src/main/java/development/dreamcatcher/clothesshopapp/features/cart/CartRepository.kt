@@ -1,11 +1,11 @@
 package development.dreamcatcher.clothesshopapp.features.cart
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import development.dreamcatcher.clothesshopapp.features.cart.database.CartDatabaseInteractor
 import development.dreamcatcher.clothesshopapp.features.cart.database.CartItemDatabaseEntity
 import development.dreamcatcher.clothesshopapp.features.cart.network.CartNetworkInteractor
-import development.dreamcatcher.clothesshopapp.features.items.database.ItemsDatabaseInteractor
 import io.reactivex.Observable
 import io.reactivex.subjects.SingleSubject
 import javax.inject.Inject
@@ -24,20 +24,44 @@ class CartRepository @Inject constructor(private val cartNetworkInteractor: Cart
     }
 
     @SuppressLint("CheckResult")
-    private fun addItemToCart(item: CartItemDatabaseEntity): Observable<Boolean>? {
+    fun addItemToCart(itemId: Int): Observable<Boolean> {
         val addItemSubject = SingleSubject.create<Boolean>()
 
-        cartNetworkInteractor.addItemToCart(item).subscribe {
-            if (it.isSuccess) {
+        cartNetworkInteractor.addItemToCart(itemId).subscribe {
+            it.onSuccess {
 
-                // Update database
-                databaseInteractor.addNewItem(item)
+                    // Update database
+                    databaseInteractor.addNewItem(it)
 
-                // Set observable value
-                addItemSubject.onSuccess(true)
+                    // Set observable value
+                    addItemSubject.onSuccess(true)
+                }
+            it.onFailure {
+                Log.e("addItemToCart error: ", it.message)
             }
         }
 
         return addItemSubject.toObservable()
+    }
+
+    @SuppressLint("CheckResult")
+    fun removeItem(itemId: Int): Observable<Boolean> {
+        val removeItemSubject = SingleSubject.create<Boolean>()
+
+        cartNetworkInteractor.removeItem(itemId).subscribe {
+            it.onSuccess {
+
+                // Update database
+                databaseInteractor.removeItem(itemId)
+
+                // Set observable value
+                removeItemSubject.onSuccess(true)
+            }
+            it.onFailure {
+                Log.e("addItemToCart error: ", it.message)
+            }
+        }
+
+        return removeItemSubject.toObservable()
     }
 }

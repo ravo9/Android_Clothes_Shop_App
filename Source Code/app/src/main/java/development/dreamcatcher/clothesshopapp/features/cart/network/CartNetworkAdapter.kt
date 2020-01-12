@@ -5,12 +5,12 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-// Network Adapter used for ApiClient building
-object NetworkAdapter {
+// Network Adapter used for RestClient building
+object CartNetworkAdapter {
 
     const private val BASE_URL = "https://private-anon-9b5a8d368f-ddshop.apiary-mock.com"
 
-    fun apiClient(): ApiClient {
+    fun cartRestClient(): CartRestClient {
         val builder = Builder()
 
         // Create Retrofit instance to operate API calls
@@ -21,6 +21,6 @@ object NetworkAdapter {
                 .client(builder.build())
                 .build()
 
-        return retrofit.create(ApiClient::class.java)
+            return retrofit.create(CartRestClient::class.java)
     }
 }

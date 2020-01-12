@@ -6,7 +6,7 @@ import development.dreamcatcher.clothesshopapp.features.cart.network.CartItemGso
 import kotlinx.coroutines.launch
 
 // Interactor used for communication between repository and internal database
-class CartDatabaseInteractor(private val cartDatabase: CartItemsDatabase) {
+class CartDatabaseInteractor(private val cartDatabase: CartDatabase) {
 
     fun addNewItem(item: CartItemGsonObject): LiveData<Boolean> {
         val itemAddedLiveData = MutableLiveData<Boolean>()
@@ -26,13 +26,18 @@ class CartDatabaseInteractor(private val cartDatabase: CartItemsDatabase) {
         return itemAddedLiveData
     }
 
-    fun getCartItems(): LiveData<List<CartItemDatabaseEntity>>? {
-        return cartDatabase.getCartItemsDao().getCartItems()
+    fun removeItem(itemId: Int): LiveData<Boolean> {
+        val itemAddedLiveData = MutableLiveData<Boolean>()
+        itemId.let {
+                launch {
+                    cartDatabase.getCartItemsDao().removeItemById(itemId)
+                }
+            }
+        itemAddedLiveData.postValue(true)
+        return itemAddedLiveData
     }
 
-    fun clearDatabase() {
-        launch {
-            cartDatabase.getCartItemsDao().clearDatabase()
-        }
+    fun getCartItems(): LiveData<List<CartItemDatabaseEntity>>? {
+        return cartDatabase.getCartItemsDao().getCartItems()
     }
 }
