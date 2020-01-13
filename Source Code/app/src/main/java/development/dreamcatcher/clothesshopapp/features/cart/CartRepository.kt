@@ -56,12 +56,12 @@ class CartRepository @Inject constructor(private val cartNetworkInteractor: Cart
         val removeItemSubject = SingleSubject.create<Boolean>()
 
         // Update database
-        databaseInteractor.removeItem(itemId)
+        //databaseInteractor.removeItem(itemId)
 
         // Set observable value
-        removeItemSubject.onSuccess(true)
+        //removeItemSubject.onSuccess(true)
 
-        /*cartNetworkInteractor.removeItem(itemId).subscribe {
+        cartNetworkInteractor.removeItem(itemId).subscribe {
             it.onSuccess {
 
                 // Update database
@@ -73,7 +73,7 @@ class CartRepository @Inject constructor(private val cartNetworkInteractor: Cart
             it.onFailure {
                 Log.e("addItemToCart error: ", it.message)
             }
-        }*/
+        }
 
         return removeItemSubject.toObservable()
     }
