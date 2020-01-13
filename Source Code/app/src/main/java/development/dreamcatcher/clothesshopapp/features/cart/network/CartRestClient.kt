@@ -14,7 +14,5 @@ interface CartRestClient {
     ): Observable<CartItemGsonObject>
 
     @DELETE("/cart/{id}")
-    fun removeItem(
-        @Path("id") id: Int
-    ): Observable<Boolean>
+    fun removeItem(@Path("id") id: Int): Observable<Boolean>
 }

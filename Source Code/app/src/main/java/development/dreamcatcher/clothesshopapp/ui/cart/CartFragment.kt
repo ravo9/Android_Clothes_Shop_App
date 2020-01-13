@@ -86,13 +86,13 @@ class CartFragment(): Fragment(){
 
     private fun subscribeForItems() {
         viewModel.getCartItems()?.observe(this, Observer<List<CartItemDatabaseEntity>> {
+            showLoadingView(false)
             if (!it.isNullOrEmpty()) {
-                showLoadingView(false)
 
                 // Map CartItemsEntities into ItemsEntities
                 val cartItems = it
                 val itemsToBeDisplayed = LinkedList<ItemDatabaseEntity>()
-                viewModel.getWholeItems()?.observe(this, Observer<List<ItemDatabaseEntity>> {
+                viewModel.getWholeItems(false)?.observe(this, Observer<List<ItemDatabaseEntity>> {
                     if (!it.isNullOrEmpty()) {
                         val allItems = it
                         cartItems.forEach {

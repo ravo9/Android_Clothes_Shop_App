@@ -16,8 +16,8 @@ class CartViewModel @Inject constructor(
 )
     : ViewModel(), LifecycleObserver {
 
-    fun getWholeItems(): LiveData<List<ItemDatabaseEntity>>? {
-        return itemsRepository.getAllItems(true)
+    fun getWholeItems(backendUpdateRequired: Boolean): LiveData<List<ItemDatabaseEntity>>? {
+        return itemsRepository.getAllItems(backendUpdateRequired)
     }
 
     fun getCartItems(): LiveData<List<CartItemDatabaseEntity>>? {
