@@ -31,10 +31,17 @@ class CartRepository @Inject constructor(private val cartNetworkInteractor: Cart
             it.onSuccess {
 
                     // Update database
-                    databaseInteractor.addNewItem(it)
+                    // Temporary we cannot use returned itemId because of the API issue.
+                    if (it.cartId != null) {
+                        val item = CartItemDatabaseEntity(
+                            itemId,
+                            it.cartId
+                        )
+                        databaseInteractor.addNewItem(item)
 
-                    // Set observable value
-                    addItemSubject.onSuccess(true)
+                        // Set observable value
+                        addItemSubject.onSuccess(true)
+                    }
                 }
             it.onFailure {
                 Log.e("addItemToCart error: ", it.message)

@@ -102,12 +102,15 @@ class WishlistFragment(): Fragment(){
                                 itemsToBeDisplayed.add(it)
                             }
                         }
+
+                        // Display fetched Items
+                        wishlistItemsGridAdapter.setItems(itemsToBeDisplayed)
                     }
                 })
+            } else {
+                // Update empty adapter state
+                wishlistItemsGridAdapter.setItems(itemsToBeDisplayed)
             }
-
-            // Display fetched Items
-            wishlistItemsGridAdapter.setItems(itemsToBeDisplayed)
         })
     }
 

@@ -192,13 +192,14 @@ class FeedActivity : AppCompatActivity() {
                 })
     }
 
+    @SuppressLint("CheckResult")
     private fun addItemToWhishlist(itemId: Int) {
         viewModel.addItemToWishlist(itemId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    Toast.makeText(this, R.string.item_added_to_cart, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.item_added_to_wishlist, Toast.LENGTH_SHORT).show()
                 },
                 {
                     Toast.makeText(this, R.string.error_item_couldnt_be_added, Toast.LENGTH_SHORT).show()

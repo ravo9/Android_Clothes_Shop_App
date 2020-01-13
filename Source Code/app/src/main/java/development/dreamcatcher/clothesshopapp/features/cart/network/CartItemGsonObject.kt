@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 // ApiResponse object used for deserializing features coming from API endpoint
 data class CartItemGsonObject(
 
-    @SerializedName("cartId")
-    val cartId: Int?,
-
     @SerializedName("productId")
-    val productId: Int?
+    val productId: Int?,
+
+    @SerializedName("cartId")
+    val cartId: Int?
 )

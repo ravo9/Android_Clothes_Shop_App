@@ -12,11 +12,8 @@
     <string name="wishlist">Wishlist</string>
     <string name="remove">Remove</string>
 
-    <string name="capital">Capital: %s</string>
-    <string name="population">Population: %d</string>
-    <string name="latitude_longitude">Latitude/ longitude: %s</string>
-
     <string name="item_added_to_cart">Item added to cart!</string>
+    <string name="item_added_to_wishlist">Item added to wishlist!</string>
     <string name="item_removed">Item removed!</string>
     <string name="error_item_couldnt_be_added">Error. Item couldn\'t be added.</string>
     <string name="error_item_couldnt_be_removed">Error. Item couldn\'t be removed.</string>

@@ -77,6 +77,7 @@ class CartFragment(): Fragment(){
             .subscribe(
                 {
                     Toast.makeText(context, R.string.item_removed, Toast.LENGTH_SHORT).show()
+                    subscribeForItems()
                 },
                 {
                     Toast.makeText(context, R.string.error_item_couldnt_be_removed, Toast.LENGTH_SHORT).show()
